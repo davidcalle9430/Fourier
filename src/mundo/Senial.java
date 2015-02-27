@@ -96,8 +96,8 @@ public class Senial {
 			writer = new PrintWriter("fourier.csv", "UTF-8");
 			for (int i = 0; i < g.size(); i++) {
 				if(g.get(i)<30.0){
-				writer.println(g.get(i).toString().replace(".", ",")+" ; "+i);
-				}
+				writer.println(g.get(i).toString().split(".")[0]+","+g.get(i).toString().split(".")[1] +" ; "+i);
+				} 
 			}
 			
 			writer.close();
