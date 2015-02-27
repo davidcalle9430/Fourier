@@ -1,6 +1,9 @@
 package mundo;
 
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 public class Senial {
 	
@@ -17,14 +20,16 @@ public class Senial {
 	private ArrayList<Double> tn;
 	private ArrayList<Double> g;
 	
-	public Senial(int bps, int numeroArmonicos, String funcion) {
+	public Senial(int bps, int numeroArmonicos, String funcion, double ff) {
 		this.bps = bps;
+		this.frecuenciaFundamental=ff;
 		this.numeroArmonicos = numeroArmonicos;
 		this.funcion = funcion;
 		an= new ArrayList<Double>();
 		bn =new ArrayList<Double>();
 		cn= new ArrayList<Double>();
 		tn= new ArrayList<Double>();
+		g= new ArrayList<Double>();
 		// no he calculado la frecuancia fundamental fourier
 	}
 	
@@ -40,7 +45,7 @@ public class Senial {
 			}
 			g.add(resultado);
 		}
-		
+		System.out.println("tam: "+g.size());
 		
 	}
 	
@@ -67,9 +72,10 @@ public class Senial {
 				//System.out.println("Se restan "+ valor+ " con "+ valor2);
 				double b1= (double)(valorb-valorb2)/(Math.PI*i);
 				resultadoB+=b1;
-				
+			
 				
 				}
+				
 			}
 			double c= Math.sqrt(Math.pow(resultado, 2)+ Math.pow(resultadoB, 2));
 			double theta=Math.atan(resultadoB/resultado);
@@ -78,24 +84,30 @@ public class Senial {
 			bn.add(resultadoB);
 			cn.add(c);
 			tn.add(theta);
+			
 		}
-		
+		calcularG(0.0, 1000, 1.0);
 		return true;
 	}
 	
-	public ArrayList<Double> calcularFuncion(int max, int min){
-		ArrayList<Double> resultado= new ArrayList<Double>();
-		for (int i = min; i < max; i++) {
-			double res= 0.0;
-			for(int j=0; j<an.size();j++){
-				//falta caluclar la frecuencia fundamental
-				//double sin=Math.sin(2*Math.PI*j*);
-				//double cos
+	public void exportarFuncion(){
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter("fourier.csv", "UTF-8");
+			for (int i = 0; i < g.size(); i++) {
+				if(g.get(i)<30.0){
+				writer.println(g.get(i).toString().replace(".", ",")+" ; "+i);
+				}
 			}
+			
+			writer.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		return null;
 	}
-	
-
 }

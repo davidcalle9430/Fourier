@@ -27,6 +27,8 @@ public class Interfaz extends JFrame{
 		
 	}
 	
+	
+	
 	public void calcular(){
 		String funcion= panelDatos.getFuncion().getText();
 		String bps= panelDatos.getBps().getText();
@@ -34,12 +36,16 @@ public class Interfaz extends JFrame{
 		Integer cantidadDeBits= funcion.length();
 		Integer bitps= Integer.parseInt(bps);
 		Integer numArmonicos= Integer.parseInt(n);
-		
+		// para calcular la frecuencia fundamental...
+		double t=(double) cantidadDeBits/(bitps);
+		double frecuenciaFundamental= (double)1/t;
 		Integer frecuencia= bitps/cantidadDeBits;
 		panelResultados.getResFrecuencia().setText(frecuencia.toString());
-		Senial p= new Senial(bitps, numArmonicos, funcion);
+		panelResultados.getResFrecuencia().setText(frecuenciaFundamental+"");;
+		Senial p= new Senial(bitps, numArmonicos, funcion, frecuenciaFundamental);
 		try {
 			p.calcularSenial();
+			p.exportarFuncion();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,6 +53,25 @@ public class Interfaz extends JFrame{
 		//el numero de armónicos lo define  la frecuencia
 		
 	}
+	
+	public static double fourier(int f){
+		
+		double res=0;
+		for (int i = 0; i < 1000; i++) {
+			res+= (double)Math.pow(f, i)/factorial(i);
+		}
+		return res;
+	}
+	public static double factorial(int n){
+		if(n==0||n==1){
+			return 1;
+		}else{
+		 return n*factorial(n-1);	
+		}
+		
+	}
+	
+	
 
 	/**
 	 * @param args
@@ -54,7 +79,9 @@ public class Interfaz extends JFrame{
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Interfaz v = new Interfaz();
-		
+		System.out.println(fourier(1)+"");
+		System.out.println(fourier(2)+"");
+
 
 	}
 
