@@ -15,6 +15,7 @@ public class Señal {
 	private ArrayList<Double> bn;
 	private ArrayList<Double> cn;
 	private ArrayList<Double> tn;
+	private ArrayList<Double> g;
 	
 	public Señal(int bps, int numeroArmonicos, String funcion) {
 		this.bps = bps;
@@ -24,6 +25,23 @@ public class Señal {
 		bn =new ArrayList<Double>();
 		cn= new ArrayList<Double>();
 		tn= new ArrayList<Double>();
+		// no he calculado la frecuancia fundamental fourier
+	}
+	
+	public void calcularG(double inicio, double fin, double incremento){
+		// ingresar los datos de 
+		for (double i = inicio; i < fin; i+=incremento) {
+			// ahora hay que calcular cada uno.
+			double resultado=0;
+			for (int j = 0; j < an.size(); j++) {
+				resultado+= an.get(j)*Math.sin(2*Math.PI*j*frecuenciaFundamental*i);
+				resultado+= bn.get(j)*Math.cos(2*Math.PI*j*frecuenciaFundamental*i);
+				resultado+= 0.5*cn.get(j);
+			}
+			g.add(resultado);
+		}
+		
+		
 	}
 	
 	public boolean calcularSeñal()throws Exception{
