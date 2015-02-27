@@ -2,7 +2,7 @@ package mundo;
 
 
 import java.util.*;
-public class Señal {
+public class Senial {
 	
 	
 
@@ -17,7 +17,7 @@ public class Señal {
 	private ArrayList<Double> tn;
 	private ArrayList<Double> g;
 	
-	public Señal(int bps, int numeroArmonicos, String funcion) {
+	public Senial(int bps, int numeroArmonicos, String funcion) {
 		this.bps = bps;
 		this.numeroArmonicos = numeroArmonicos;
 		this.funcion = funcion;
@@ -44,7 +44,7 @@ public class Señal {
 		
 	}
 	
-	public boolean calcularSeñal()throws Exception{
+	public boolean calcularSenial()throws Exception{
 		//ir leyendo uno a uno cada valor de la función
 		
 		for (int i = 1; i <= numeroArmonicos; i++) {

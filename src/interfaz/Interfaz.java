@@ -4,7 +4,8 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import mundo.Señal;
+import mundo.Senial;
+
 
 
 public class Interfaz extends JFrame{
@@ -36,9 +37,9 @@ public class Interfaz extends JFrame{
 		
 		Integer frecuencia= bitps/cantidadDeBits;
 		panelResultados.getResFrecuencia().setText(frecuencia.toString());
-		Señal p= new Señal(bitps, numArmonicos, funcion);
+		Senial p= new Senial(bitps, numArmonicos, funcion);
 		try {
-			p.calcularSeñal();
+			p.calcularSenial();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
