@@ -34,15 +34,27 @@ public class Senial {
 	}
 	
 	public void calcularG(double inicio, double fin, double incremento){
+	
+		double cantuno=0.0;
+		for (int i = 0; i < funcion.length(); i++) {
+			if(funcion.charAt(i)=='1'){
+				cantuno+=1;
+			}
+		}
+		double constante= (double)cantuno/(double)funcion.length();
 		// ingresar los datos de 
 		for (double i = inicio; i < fin; i+=incremento) {
 			// ahora hay que calcular cada uno.
 			double resultado=0;
 			for (int j = 0; j < an.size(); j++) {
-				resultado+= an.get(j)*Math.sin(2*Math.PI*j*frecuenciaFundamental*i);
-				resultado+= bn.get(j)*Math.cos(2*Math.PI*j*frecuenciaFundamental*i);
-				resultado+= 0.5*cn.get(j);
+				resultado+=(double) an.get(j)*Math.sin(2*Math.PI*(j+1)*frecuenciaFundamental*i);
+				//resultado+= 0.5*cn.get(j);
 			}
+			for (int j = 0; j < bn.size(); j++) {
+				resultado+= (double) bn.get(j)*Math.cos(2*Math.PI*(j+1)*frecuenciaFundamental*i);
+				
+			}
+			resultado+=constante;
 			g.add(resultado);
 		}
 		System.out.println("tam: "+g.size());
@@ -55,7 +67,7 @@ public class Senial {
 		for (int i = 1; i <= numeroArmonicos; i++) {
 			double resultado=0.0;
 			double resultadoB=0.0;
-			for (int j = 1; j <funcion.length(); j++) {
+			for (int j = 1; j <=funcion.length(); j++) {
 				if(funcion.charAt(j-1)=='1'){
 				double valor= (double)(Math.cos((double)(Math.PI*(j)*i*2)/(double)funcion.length()));
 				double valor2=(double)(Math.cos((double)(Math.PI*(j-1)*i*2)/(double)funcion.length()));
@@ -79,14 +91,14 @@ public class Senial {
 			}
 			double c= Math.sqrt(Math.pow(resultado, 2)+ Math.pow(resultadoB, 2));
 			double theta=Math.atan(resultadoB/resultado);
-			System.out.println(i+". "+resultado+ "  "+ resultadoB+ "  "+ c+ "  "+theta);
+		//	System.out.println(i+". "+resultado+ "  "+ resultadoB+ "  "+ c+ "  "+theta);
 			an.add(resultado);
 			bn.add(resultadoB);
 			cn.add(c);
 			tn.add(theta);
 			
 		}
-		calcularG(0.0, 1000, 1.0);
+		calcularG(0.0, 255, 1.0);
 		return true;
 	}
 	
@@ -94,15 +106,16 @@ public class Senial {
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter("fourier.csv", "UTF-8");
+			writer.println( "sep=;");
+			writer.println( " ; y ");
 			for (int i = 0; i < g.size(); i++) {
-				if(g.get(i)<30.0){
 					
 					String imprimo= String.valueOf(g.get(i));
 					
 					String[] vector= imprimo.split("\\.");
 					System.out.println("imprimo :" +imprimo+ " l: "+vector.length);
-				writer.println( vector[0]+","+vector[1]+";"+i);
-				} 
+				writer.println( vector[0]+"."+vector[1]+";"+i);
+			
 			}
 			
 			writer.close();
@@ -112,6 +125,8 @@ public class Senial {
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}catch(Exception e){
+			
 		}
 		
 	}

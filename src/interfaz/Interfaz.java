@@ -38,7 +38,7 @@ public class Interfaz extends JFrame{
 		Integer numArmonicos= Integer.parseInt(n);
 		// para calcular la frecuencia fundamental...
 		double t=(double) cantidadDeBits/(bitps);
-		double frecuenciaFundamental= (double)1/t;
+		double frecuenciaFundamental= (double)bitps/(double)cantidadDeBits;
 		Integer frecuencia= bitps/cantidadDeBits;
 		panelResultados.getResFrecuencia().setText(frecuencia.toString());
 		panelResultados.getResFrecuencia().setText(frecuenciaFundamental+"");;
