@@ -42,6 +42,7 @@ public class Senial {
 			}
 		}
 		double constante= (double)cantuno/(double)funcion.length();
+		System.out.println("con"+constante);
 		// ingresar los datos de 
 		for (double i = inicio; i < fin; i+=incremento) {
 			// ahora hay que calcular cada uno.
@@ -91,14 +92,14 @@ public class Senial {
 			}
 			double c= Math.sqrt(Math.pow(resultado, 2)+ Math.pow(resultadoB, 2));
 			double theta=Math.atan(resultadoB/resultado);
-		//	System.out.println(i+". "+resultado+ "  "+ resultadoB+ "  "+ c+ "  "+theta);
+			System.out.println(i+". "+resultado+ "  "+ resultadoB+ "  "+ c+ "  "+theta);
 			an.add(resultado);
 			bn.add(resultadoB);
 			cn.add(c);
 			tn.add(theta);
 			
 		}
-		calcularG(0.0, 255, 1.0);
+		calcularG(0.0, 1, 0.001);
 		return true;
 	}
 	
